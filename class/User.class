@@ -1,0 +1,88 @@
+<?php
+
+class User {
+        
+    private $id;
+    private $name;
+    private $login;
+    private $password;
+    private $permission;    
+    
+    public function construct(){ }
+    
+    public function setId($id){ $this->id = $id; }
+    public function getId(){ return $this->id; }
+    
+    public function setName($name){ $this->name = $name; }
+    public function getName(){ return $this->name; }
+    
+    public function setLogin($login){ $this->login = $login; }
+    public function getLogin(){ return $this->login; }
+    
+    public function setPassword($password){ $this->password = $password; }
+    public function getPassword(){ return $this->password; }
+    
+    public function setPermission($permission){ $this->permission = $permission; }
+    public function getPermission(){ return $this->permission; }
+    
+    public function insertUser(){
+        
+        $db = new Connection();
+        $db->connectDB();
+                
+        $findUser = mysql_query("select Us_Login from Tab_User where Us_Login = '".$this->login."'");
+        
+        if(!$findUser){
+    			
+    			echo "Your job failed. Try again in a few minutes. ". mysql_error();
+    			exit;
+        }
+        $row = mysql_fetch_row($findUser);
+        
+        if($row > 0){
+        
+        	echo "<script text/javascript>alert('This User already exists!')</script>";
+        	echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=user'>";
+        	
+        }else{
+        
+        	$insert = "insert into Tab_User values ('','".$this->name."','".$this->password."','".$this->login."','".$this->permission."')";
+					mysql_query($insert);
+					
+				  echo "<script text/javascript>alert('User created')</script>";
+					echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=user'>";
+        }		
+        $db->disconnectDB();
+    }    
+    public function logon(){
+        
+        $db = new Connection();
+        $db->connectDB();
+                
+        $validate = mysql_query("select * from Tab_User where Us_Login = '".$this->login."'");
+        
+        while($query = mysql_fetch_array($validate)) {
+        
+	       	$this->setId($query['Us_Id']);
+	        $this->setName($query['Us_Name']);
+	        $this->setLogin($query['Us_Login']);
+	        $this->setPassword($query['Us_Password']);
+	        $this->setPermission($query['Us_Permission']);
+				}            
+        $db->disconnectDB();
+    }
+    public function changePass(){
+    
+    	  $db = new Connection();
+        $db->connectDB();
+        
+        $change = mysql_query("update Tab_User set Us_Password = '".$this->password."' where Us_Login = '".$this->login."'");
+        
+        echo "<script text/javascript>alert('Password Changed')</script>";
+				echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=user'>";
+        
+        $db->disconnectDB();
+    }
+}
+
+?>

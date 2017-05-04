@@ -1,0 +1,57 @@
+﻿<h1 align="center">User Administration</h1>
+<form action="../control/getUser.php" method="post">
+<table width="380px" align="center">
+	<tr>
+		<td colspan="3"><b>Include a New User</b></td>
+	</tr>
+	<tr>
+		<td colspan="3"><hr/></td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>Login</td>
+		<td align="center">Permission</td>	
+	</tr>
+	<tr>	
+		<td><input type="text" name="name" value="" maxlength="30" required="required"/></td>
+		<td><input type="text" name="login" value="" maxlength="10" required="required"/></td>
+		<td><input type="radio" name="permission" value="admin"/> Admin</td>
+	</tr>
+	<tr>
+		<td>Password</td>
+		<td>Confirm Password</td>
+		<td><input type="radio" name="permission" value="analyst" checked=""/> Analyst</td>
+	</tr>
+	<tr>
+		<td><input type="password" name="password" value="" maxlength="10" required="required"/></td>
+		<td><input type="password" name="confirm" value="" maxlength="10" required="required"/></td>
+		<td align="right"><input type="submit" value="Create"/></td>
+	</tr>
+	<tr>
+		<td colspan="3"><hr/></td>
+	</tr>
+</table>
+</form>
+<form action="../control/changePass.php" method="post">
+<table width="380px" align="center">	
+	<tr>
+		<td colspan="3"><b>Change my Password</b></td>
+	</tr>
+	<tr>
+		<td colspan="3"><hr/></td>
+	</tr>
+	<tr>
+		<td>Password</td>
+		<td>Confirm Password</td>
+		<td></td>		
+	</tr>
+	<tr>	
+		<td><input type="password" name="password" value="" maxlength="10" required="required"/></td>
+		<td><input type="password" name="confirm" value="" maxlength="10" required="required"/></td>
+		<td align="right"><input type="submit" value="Update"/></td>
+	</tr>
+	<tr>
+		<td colspan="3"><hr/></td>
+	</tr>
+</table> 
+</form>	

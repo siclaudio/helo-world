@@ -1,0 +1,360 @@
+<?php
+
+class Activity {
+        
+    private $id;
+    private $login;
+		private $type;
+		private $channel;
+		private $note;
+		private $customer;
+		private $startDate;
+		private $endDate;
+		private $effort;
+		private $error;
+    
+    public function construct(){ }
+    
+    public function setId($id){ $this->id = $id; }
+    public function getId(){ return $this->id; }
+    
+    public function setLogin($login){ $this->login = $login; }
+    public function getLogin(){ return $this->login; }
+    
+    public function setType($type){ $this->type = $type; }
+    public function getType(){ return $this->type; }
+    
+    public function setChannel($channel){ $this->channel = $channel; }
+    public function getChannel(){ return $this->channel; }
+    
+    public function setNote($note){ $this->note = $note; }
+    public function getNote(){ return $this->note; }
+    
+    public function setCustomer($customer){ $this->customer = $customer; }
+    public function getCustomer(){ return $this->customer; }
+    
+    public function setStartDate($startDate){ $this->startDate = $startDate; }
+    public function getStartDate(){ return $this->startDate; }
+    
+    public function setEndDate($endDate){ $this->endDate = $endDate; }
+    public function getEndDate(){ return $this->endDate; }
+    
+    public function setEffort($effort){ $this->effort = $effort; }
+    public function getEffort(){ return $this->effort; }
+    
+    public function setError($error){ $this->error = $error; }
+    public function getError(){ return $this->error; }
+    
+    public function effortValue(){
+    	
+    	switch ($this->type) {
+    		
+    		case "Data Extract":
+        case "Data Production":
+    		case "One Shot Send":
+    		case "Periodic Monitoring":
+        case "Periodic Send":
+        	$this->setEffort("3");
+        	break;	
+    		case "Closed Cases":
+        case "Complex Report":
+        case "Quality Monitory":
+        case "Simple Report":
+        	$this->setEffort("2");
+        	break;
+        case "One Shot Return":
+        case "One Shot Test":
+        case "Periodic Test":
+        	$this->setEffort("1");
+        	break;
+				default:
+					$this->setEffort("0");
+        	break;
+			}
+    }
+    
+    public function insertActivity(){
+        
+        $db = new Connection();
+        $db->connectDB();
+        
+        $now = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), date("Y"));
+        $this->setEndDate(date("Y-m-d H:i:s", $now));
+        $this->setError('0');
+        
+        if($this->getType() == "Beginning Expedient"){ $this->setStartDate(date("Y-m-d H:i:s", $now)); } else{
+        
+        	$result = mysql_query("select * from Tab_Job where Tj_Login = '".$this->login."' order by Tj_Id desc limit 0,1");    
+				
+					while($query = mysql_fetch_array($result)){
+	        
+			      $this->setStartDate($query['Tj_EndDate']);
+	
+					}
+				}
+				$insert = "insert into Tab_Job values ('','".$this->login."','".$this->type."','".$this->channel."','".$this->note."','".$this->customer."','".$this->startDate."','".$this->endDate."','".$this->effort."','".$this->error."')";
+				mysql_query($insert);
+				
+				$db->disconnectDB();	
+				
+				echo "<script text/javascript>alert('The Activity was Registered')</script>";
+				echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=activity'>";
+    }    
+    public function consultActivity($option, $page){
+        
+        $db = new Connection();
+        $db->connectDB();
+        
+        $page;
+        $end = $page * 10;
+        $begin = $end - 10;
+        $limit = $begin.",".$end;              
+                
+        if($option == "all"){ $find1 = "select * from Tab_Job where Tj_Type = '".$this->type."' and Tj_Channel = '".$this->channel."' and Tj_Login = '".$this->login."' order by Tj_EndDate desc limit ".$limit; }
+        else if($option == "both1"){ $find1 = "select * from Tab_Job where Tj_Type = '".$this->type."' and Tj_Channel = '".$this->channel."' order by Tj_EndDate desc limit ".$limit; }
+        else if($option == "both2"){ $find1 = "select * from Tab_Job where Tj_Type = '".$this->type."' and Tj_Login = '".$this->login."' order by Tj_EndDate desc limit ".$limit; }
+        else if($option == "both3"){ $find1 = "select * from Tab_Job where Tj_Login = '".$this->login."' and Tj_Channel = '".$this->channel."' order by Tj_EndDate desc limit ".$limit; }
+        else if($option == "channel"){ $find1 = "select * from Tab_Job where Tj_Channel = '".$this->channel."' order by Tj_EndDate desc limit ".$limit; }
+        else if($option == "type"){ $find1 = "select * from Tab_Job where Tj_Type = '".$this->type."' order by Tj_EndDate desc limit ".$limit; }
+        else if($option == "user"){ $find1 = "select * from Tab_Job where Tj_Login = '".$this->login."' order by Tj_EndDate desc limit ".$limit; }
+        
+        $find2 = mysql_query($find1);
+        $tot = mysql_num_rows($find2);
+        
+        while($query = mysql_fetch_array($find2)) {
+        
+	       	$this->setId($query['Tj_Id']);
+	       	$this->setLogin($query['Tj_Login']);
+	       	$this->setType($query['Tj_Type']);
+	       	$this->setChannel($query['Tj_Channel']);
+	       	$this->setNote($query['Tj_Note']);
+	       	$this->setStartDate($query['Tj_StartDate']);
+	       	$this->setEndDate($query['Tj_EndDate']);
+	       	$this->setEffort($query['Tj_Effort']);
+	       	$this->setError($query['Tj_Error']);	        	        	        	        	        
+	        
+		      echo "<tr><td bgcolor='#87CEFA'>";	        		 	        
+		      echo $this->getLogin();
+		      echo "</td><td bgcolor='#87CEFA'>";	        
+		      echo $this->getType();
+		      echo "</td><td bgcolor='#87CEFA' align='center'>";
+		      echo $this->getChannel();
+		      echo "</td><td bgcolor='#87CEFA'>";
+		      echo $this->getNote();
+		      echo "</td><td bgcolor='#87CEFA' align='center'>";
+		      echo $this->getStartDate(); 
+		      echo "</td><td bgcolor='#87CEFA' align='center'>";
+		      echo $this->getEndDate();
+		      echo "</td><td bgcolor='#87CEFA' align='center'>";	      
+		      echo $this->getError();
+		      echo "</td>";
+		      if($_SESSION['permission'] == "admin" && $this->getEffort() > 0){
+		       	echo "<td bgcolor='#87CEFA' align='center'><a href='putError.php?rule=".$this->getId()."&effort=".$this->getEffort()."'>Pontuar</a></td></tr>";
+					}else { echo "<td bgcolor='#87CEFA' align='center'>-</td></tr>";}	
+				}
+				
+				if(($page * 10) > $tot){ 
+				
+					$next = $page;
+					$show = "<a href='../control/findActivity.php?page=".$next."' style='text-decoration: none;'>View 10 less</a>";
+					$show2 = "View 10 more";
+				}else if($page > 1){	
+				
+					$next2 = $page + 1;
+					$next = $page - 1;
+					$show = "<a href='../control/findActivity.php?page=".$next."' style='text-decoration: none;'>View 10 less</a>";
+					$show2 = "<a href='../control/findActivity.php?page=".$next2."' style='text-decoration: none;'>View 10 more</a>";
+				}else {
+				
+					$next = $page + 1;
+					$show2 = "<a href='../control/findActivity.php?page=".$next."' style='text-decoration: none;'>View 10 more</a>";
+					$show = "View 10 less";
+				}
+				
+				echo "<tr><td colspan='7' bgcolor='#1E90FF' align='center'>".$show." | ".$show2."</td>";
+				echo "<td bgcolor='#1E90FF' align='center'><a href='../control/findActivity.php?clear=yes' style='text-decoration: none;'>Exit</td></tr>";				
+				        
+        $db->disconnectDB();
+    }
+    public function includeError(){
+    
+    	  $db = new Connection();
+        $db->connectDB();
+        $err = mysql_query("update Tab_Job set Tj_Error = '".$this->error."' where Tj_Id = '".$this->id."'");        				
+        
+        $db->disconnectDB();     
+				echo "<script text/javascript>alert('The Activity was Updated')</script>";
+				echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=activity'>";
+    }
+    public function report($option1, $option2){
+    
+    	  $db = new Connection();
+        $db->connectDB();
+        
+        if($option1 == "consolidated"){
+        
+        	if($option2 == "single"){
+        		
+		        $report = "select ".
+											"u.Us_Name, ".
+											"j.Tj_Type, ".
+											"j.Tj_Effort, ".
+											"SUM(j.Tj_Error) as Error, ".
+							        "SEC_TO_TIME(AVG(TIME_TO_SEC(TIMEDIFF(j.Tj_EndDate,j.Tj_StartDate)))) as Time, ".
+											"COUNT(*) as Quantity ".
+											"from Tab_Job j, Tab_User u ".
+											"where u.Us_Login = '".$this->login."' ".
+							        "and u.Us_Login = j.Tj_Login ".
+											"and j.Tj_StartDate between '".$this->startDate."' and '".$this->endDate."' ".
+											"Group by j.Tj_Login, j.Tj_Type ".
+											"Order by j.Tj_Login, j.Tj_Type ";	
+					} else if($option2 == "full"){ 
+						
+						$report = "select ".
+											"u.Us_Name, ".
+											"j.Tj_Type, ".
+											"j.Tj_Effort, ".
+											"SUM(j.Tj_Error) as Error, ".
+							        "SEC_TO_TIME(AVG(TIME_TO_SEC(TIMEDIFF(j.Tj_EndDate,j.Tj_StartDate)))) as Time, ".
+											"COUNT(*) as Quantity ".
+											"from Tab_Job j, Tab_User u ".
+											"where u.Us_Login = j.Tj_Login ".
+											"and j.Tj_StartDate between '".$this->startDate."' and '".$this->endDate."' ".
+											"Group by j.Tj_Login, j.Tj_Type ".
+											"Order by j.Tj_Login, j.Tj_Type ";
+					}else if($option2 == "customer"){ 
+						
+						$report = "select ".
+											"u.Us_Name, ".
+											"j.Tj_Type, ".
+											"j.Tj_Effort, ".
+											"SUM(j.Tj_Error) as Error, ".
+							        "SEC_TO_TIME(AVG(TIME_TO_SEC(TIMEDIFF(j.Tj_EndDate,j.Tj_StartDate)))) as Time, ".
+											"COUNT(*) as Quantity ".
+											"from Tab_Job j, Tab_User u ".
+											"where u.Us_Login = j.Tj_Login ".
+											"and j.Tj_StartDate between '".$this->startDate."' and '".$this->endDate."' ".
+											"and j.Tj_Customer = '".$this->getCustomer()."' ".
+											"Group by j.Tj_Login, j.Tj_Type ".
+											"Order by j.Tj_Login, j.Tj_Type ";
+					}
+					$run = mysql_query($report);    				
+        
+	        echo "<html><head><title>ET@ Brazil</title></head><body>";
+	        echo "<table width='600px' align='center'>";
+					echo "<tr>";
+					echo "<td bgcolor='#1E90FF'>Activities</td>";
+					echo "<td bgcolor='#1E90FF'>Name</td>";
+					echo "<td align='center' bgcolor='#1E90FF'>Quantity</td>";
+					echo "<td align='center' bgcolor='#1E90FF'>Average Time</td>";
+					echo "</tr>";
+					
+					while($query = mysql_fetch_array($run)){
+						
+						$earnedPoints = $earnedPoints + $query['Quantity'] * $query['Tj_Effort'];
+						$lostPoints = $lostPoints + $query['Error'];
+						
+						echo "<tr>";
+						echo "<td bgcolor='#87CEFA'>".$query['Tj_Type']."</td>";
+						echo "<td bgcolor='#87CEFA'>".$query['Us_Name']."</td>";		
+						echo "<td align='center' bgcolor='#87CEFA'>".$query['Quantity']."</td>";
+						echo "<td align='center' bgcolor='#87CEFA'>".$query['Time']."</td>";
+						echo "</tr>";
+					}
+					$total = (1 - ($lostPoints / $earnedPoints)) * 100;			
+					echo "</table>";
+					if($option2 != "customer"){
+					echo "<table width='520px' align='center'>";
+					echo "<tr><td colspan='6'><hr/></td></tr>";					
+					echo "<tr><td align='center' bgcolor='#1E90FF' width='120px'>Earned Points</td><td align='center' bgcolor='#87CEFA' width='40px'>".$earnedPoints."</td>";
+					echo "<td align='center' bgcolor='#1E90FF' width='120px'>Lost Points</td><td align='center' bgcolor='#87CEFA' width='40px'>".$lostPoints."</td>";
+					echo "<td align='center' bgcolor='#1E90FF' width='120px'>Quality Point</td><td align='center' bgcolor='#87CEFA' width='80px'>".number_format($total, 2, ',', '')."%</td></tr></table>";}
+	        echo "</body></html>";
+				}	else if($option1 == "detailed"){
+				
+					if($option2 == "single"){
+
+		        $report = "select ".
+											"u.Us_Name, ".
+											"j.Tj_Type, ".
+											"j.Tj_Effort, ".
+											"j.Tj_Error, ".
+											"j.Tj_Note, ".
+											"j.Tj_Channel, ".
+							        "j.Tj_StartDate, ".
+							        "j.Tj_EndDate ".											
+											"from Tab_Job j, Tab_User u ".
+											"where u.Us_Login = '".$this->login."' ".
+							        "and u.Us_Login = j.Tj_Login ".
+											"and j.Tj_StartDate between '".$this->startDate."' and '".$this->endDate."' ".
+											"Order by j.Tj_EndDate desc ";	
+					} else if($option2 == "full"){ 
+
+						$report = "select ".
+											"u.Us_Name, ".
+											"j.Tj_Type, ".
+											"j.Tj_Effort, ".
+											"j.Tj_Error, ".
+											"j.Tj_Note, ".
+											"j.Tj_Channel, ".
+							        "j.Tj_StartDate, ".
+							        "j.Tj_EndDate ".											
+											"from Tab_Job j, Tab_User u ".
+							        "where u.Us_Login = j.Tj_Login ".
+											"and j.Tj_StartDate between '".$this->startDate."' and '".$this->endDate."' ".
+											"Order by u.Us_Name, j.Tj_EndDate desc ";
+					}else if($option2 == "customer"){ 
+						
+						$report = "select ".
+											"u.Us_Name, ".
+											"j.Tj_Type, ".
+											"j.Tj_Effort, ".
+											"j.Tj_Error, ".
+											"j.Tj_Note, ".
+											"j.Tj_Channel, ".
+							        "j.Tj_StartDate, ".
+							        "j.Tj_EndDate ".											
+											"from Tab_Job j, Tab_User u ".
+							        "where u.Us_Login = j.Tj_Login ".
+											"and j.Tj_StartDate between '".$this->startDate."' and '".$this->endDate."' ".
+											"and j.Tj_Customer = '".$this->getCustomer()."' ".
+											"Order by u.Us_Name, j.Tj_EndDate desc ";
+					}			
+					$run = mysql_query($report);    				
+	        
+	        echo "<html><head><title>ET@ Brazil</title></head><body>";
+	        echo "<table width='1000px' align='center'>";
+					echo "<tr>";
+					echo "<td bgcolor='#1E90FF'>Name</td>";
+					echo "<td bgcolor='#1E90FF'>Activities</td>";
+					echo "<td align='center' bgcolor='#1E90FF'>Channel</td>";
+					echo "<td align='center' bgcolor='#1E90FF'>Notes</td>";					
+					echo "<td align='center' bgcolor='#1E90FF'>Start Date</td>";
+					echo "<td align='center' bgcolor='#1E90FF'>End Date</td>";					
+					echo "<td align='center' bgcolor='#1E90FF'>Earned Point</td>";
+					echo "<td align='center' bgcolor='#1E90FF'>Lost Point</td>";
+					echo "</tr>";
+					
+					while($query = mysql_fetch_array($run)){
+						
+						$earnedPoints = $earnedPoints + $query['Quantity'] * $query['Tj_Effort'];
+						$lostPoints = $lostPoints + $query['Error'];
+						
+						echo "<tr>";
+						echo "<td bgcolor='#87CEFA'>".$query['Us_Name']."</td>";
+						echo "<td bgcolor='#87CEFA'>".$query['Tj_Type']."</td>";
+						echo "<td align='center' bgcolor='#87CEFA'>".$query['Tj_Channel']."</td>";
+						echo "<td align='center' bgcolor='#87CEFA'>".$query['Tj_Note']."</td>";						
+						echo "<td align='center' bgcolor='#87CEFA'>".$query['Tj_StartDate']."</td>";
+						echo "<td align='center' bgcolor='#87CEFA'>".$query['Tj_EndDate']."</td>";						
+						echo "<td align='center' bgcolor='#87CEFA'>".$query['Tj_Effort']."</td>";
+						echo "<td align='center' bgcolor='#87CEFA'>".$query['Tj_Error']."</td>";
+						echo "</tr>";
+					}		
+					echo "</table>";
+					echo "</body></html>";
+	      }  
+        $db->disconnectDB();
+    }
+}
+?>

@@ -1,0 +1,79 @@
+﻿<h1 align="center"> Customer Reports</h1>
+<form action="../control/getReport.php?kind=consolidated&type=customer" method="post" target="_blank">
+<table width="350px" align="center">
+	<tr>
+		<td colspan="3"><b>View Consolidated Report</b></td>
+	</tr>
+	<tr>
+		<td colspan="3"><hr/></td>
+	</tr>
+	<tr>
+		<td>Start Date</td>
+		<td>End Date</td>
+	</tr>
+	<tr>
+		<td><input type="text" name="start" value="" maxlength="10" required="required"/></td>	
+		<td><input type="text" name="end" value="" maxlength="10" required="required"/></td>				
+	</tr>
+	<tr>
+		<td>Customer</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>
+			<select name="customer" required="required">
+				<option value="Internal" selected="selected">Internal</option>
+				<option value="Banco Original">Banco Original</option>
+				<option value="Editora Abril">Editora Abril</option>
+				<option value="Folha da Manha">Folha da Manha</option>
+				<option value="Localiza">Localiza</option>
+				<option value="Pellegrino">Pellegrino</option>
+				<option value="OgilvyOne">OgilvyOne</option>
+			</select>
+		</td>
+		<td align="center"><input type="submit" value="View"/></td>
+	</tr>
+	<tr>
+		<td colspan="3"><hr/></td>
+	</tr>
+</table>
+</form>
+<form action="../control/getReport.php?kind=detailed&type=customer" method="post" target="_blank">
+<table width="350px" align="center">
+	<tr>
+		<td colspan="3"><b>View Detailed Report</b></td>
+	</tr>
+	<tr>
+		<td colspan="3"><hr/></td>
+	</tr>
+	<tr>
+		<td>Start Date</td>
+		<td>End Date</td>		
+	</tr>
+	<tr>
+		<td><input type="text" name="start" value="" maxlength="10" required="required"/></td>	
+		<td><input type="text" name="end" value="" maxlength="10" required="required"/></td>				
+	</tr>
+	<tr>
+		<td>Customer</td>
+		<td></td>
+	</tr>
+	<tr>		
+		<td>
+			<select name="customer" required="required">
+				<option value="Internal" selected="selected">Internal</option>
+				<option value="Banco Original">Banco Original</option>
+				<option value="Editora Abril">Editora Abril</option>
+				<option value="Folha da Manha">Folha da Manha</option>
+				<option value="Localiza">Localiza</option>
+				<option value="Pellegrino">Pellegrino</option>
+				<option value="OgilvyOne">OgilvyOne</option>
+			</select>
+		</td>
+		<td align="center"><input type="submit" value="View"/></td>
+	<tr>	
+		<td colspan="3"><hr/></td>
+	</tr>
+</table>
+</form>
+

@@ -1,0 +1,19 @@
+<?php
+
+class Connection {
+    
+    public function construct(){}
+    
+    public function connectDB(){
+                        
+        $con = mysql_connect("192.168.0.231", "usr_wfpv", "7kr#aid@") or die("Connection was Failed". mysql_error());
+        mysql_select_db("db_wfpv",$con) or die("No DB Connected");
+    }
+    public function disconnectDB(){
+        
+        mysql_close();
+    }
+    
+}
+
+?>
