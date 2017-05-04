@@ -98,7 +98,7 @@ class Activity {
 				$db->disconnectDB();	
 				
 				echo "<script text/javascript>alert('The Activity was Registered')</script>";
-				echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=activity'>";
+				echo "<meta http-equiv='refresh' content='0;URL=https://resultadospesquisasatisfacao.herokuapp.com/pages/home.php?option=activity'>";
     }    
     public function consultActivity($option, $page){
         
@@ -156,23 +156,23 @@ class Activity {
 				if(($page * 10) > $tot){ 
 				
 					$next = $page;
-					$show = "<a href='../control/findActivity.php?page=".$next."' style='text-decoration: none;'>View 10 less</a>";
+					$show = "<a href='https://resultadospesquisasatisfacao.herokuapp.com/control/findActivity.php?page=".$next."' style='text-decoration: none;'>View 10 less</a>";
 					$show2 = "View 10 more";
 				}else if($page > 1){	
 				
 					$next2 = $page + 1;
 					$next = $page - 1;
-					$show = "<a href='../control/findActivity.php?page=".$next."' style='text-decoration: none;'>View 10 less</a>";
-					$show2 = "<a href='../control/findActivity.php?page=".$next2."' style='text-decoration: none;'>View 10 more</a>";
+					$show = "<a href='https://resultadospesquisasatisfacao.herokuapp.com/control/findActivity.php?page=".$next."' style='text-decoration: none;'>View 10 less</a>";
+					$show2 = "<a href='https://resultadospesquisasatisfacao.herokuapp.com/control/findActivity.php?page=".$next2."' style='text-decoration: none;'>View 10 more</a>";
 				}else {
 				
 					$next = $page + 1;
-					$show2 = "<a href='../control/findActivity.php?page=".$next."' style='text-decoration: none;'>View 10 more</a>";
+					$show2 = "<a href='https://resultadospesquisasatisfacao.herokuapp.com/control/findActivity.php?page=".$next."' style='text-decoration: none;'>View 10 more</a>";
 					$show = "View 10 less";
 				}
 				
 				echo "<tr><td colspan='7' bgcolor='#1E90FF' align='center'>".$show." | ".$show2."</td>";
-				echo "<td bgcolor='#1E90FF' align='center'><a href='../control/findActivity.php?clear=yes' style='text-decoration: none;'>Exit</td></tr>";				
+				echo "<td bgcolor='#1E90FF' align='center'><a href='https://resultadospesquisasatisfacao.herokuapp.com/control/findActivity.php?clear=yes' style='text-decoration: none;'>Exit</td></tr>";				
 				        
         $db->disconnectDB();
     }
@@ -184,7 +184,7 @@ class Activity {
         
         $db->disconnectDB();     
 				echo "<script text/javascript>alert('The Activity was Updated')</script>";
-				echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=activity'>";
+				echo "<meta http-equiv='refresh' content='0;URL=https://resultadospesquisasatisfacao.herokuapp.com/pages/home.php?option=activity'>";
     }
     public function report($option1, $option2){
     
