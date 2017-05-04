@@ -3,15 +3,15 @@ session_start("et@br");
 
 if(!isset($_SESSION['login']) || !isset($_SESSION['password'])){
     
-     header("Location: ../index.php");
+     header("Location: https://resultadospesquisasatisfacao.herokuapp.com/index.php");
 }
 
 $login = $_SESSION['login'];
 $password = $_POST['password'];
 $confirm = $_POST['confirm'];
 
-include "../class/Connection.class";
-include "../class/User.class";
+include "https://resultadospesquisasatisfacao.herokuapp.com/class/Connection.class";
+include "https://resultadospesquisasatisfacao.herokuapp.com/class/User.class";
 
 if($password == $confirm){
 
@@ -22,6 +22,6 @@ if($password == $confirm){
 } else { 
 		
 		echo "<script text/javascript>alert('Confirm your Password')</script>";
-		echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=user'>"; 
+		echo "<meta http-equiv='refresh' content='0;URL=https://resultadospesquisasatisfacao.herokuapp.com/pages/home.php?option=user'>"; 
 	}
 ?>
