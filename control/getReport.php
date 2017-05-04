@@ -3,7 +3,7 @@ session_start("et@br");
 
 if(!isset($_SESSION['login']) || !isset($_SESSION['password'])){
     
-     header("Location: ../index.php");
+     header("Location: https://resultadospesquisasatisfacao.herokuapp.com/index.php");
 }
 
 $login = $_SESSION['login'];
@@ -15,8 +15,8 @@ if($type == "customer"){
 	$customer = $_POST['customer'];
 }	
 
-include "../class/Connection.class";
-include "../class/Activity.class";
+include "https://resultadospesquisasatisfacao.herokuapp.com/class/Connection.class";
+include "https://resultadospesquisasatisfacao.herokuapp.com/class/Activity.class";
 
 $job = new Activity();
 $job->setLogin($login);
