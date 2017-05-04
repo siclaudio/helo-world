@@ -42,7 +42,7 @@ class User {
         if($row > 0){
         
         	echo "<script text/javascript>alert('This User already exists!')</script>";
-        	echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=user'>";
+        	echo "<meta http-equiv='refresh' content='0;URL=https://resultadospesquisasatisfacao.herokuapp.com/pages/home.php?option=user'>";
         	
         }else{
         
@@ -79,7 +79,7 @@ class User {
         $change = mysql_query("update Tab_User set Us_Password = '".$this->password."' where Us_Login = '".$this->login."'");
         
         echo "<script text/javascript>alert('Password Changed')</script>";
-				echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=user'>";
+				echo "<meta http-equiv='refresh' content='0;URL=https://resultadospesquisasatisfacao.herokuapp.com/pages/home.php?option=user'>";
         
         $db->disconnectDB();
     }
