@@ -3,7 +3,7 @@ session_start("et@br");
 
 if(!isset($_SESSION['login']) || !isset($_SESSION['password'])){
     
-     header("Location: ../index.php");
+     header("Location: https://resultadospesquisasatisfacao.herokuapp.com/index.php");
 }
 if($_GET['clear'] == "yes"){
 	
@@ -20,8 +20,8 @@ if($_SESSION['type'] == "" && $_SESSION['channel'] == "" && $_SESSION['user'] ==
 
 $page = $_GET['page'];
 
-include "../class/Connection.class";
-include "../class/Activity.class";
+include "https://resultadospesquisasatisfacao.herokuapp.com/class/Connection.class";
+include "https://resultadospesquisasatisfacao.herokuapp.com/class/Activity.class";
 
 echo "<html><head><title>ET@ Brazil</title></head><body>";
 echo "<table align='center' cellpadding='3' bgcolor='#000080'>";
@@ -84,7 +84,7 @@ else if($_SESSION['type'] == "" && $_SESSION['channel'] != "" && $_SESSION['user
 else if($_SESSION['type'] == "" && $_SESSION['channel'] == "" && $_SESSION['user'] == ""){ 
 		
 		//echo "<script text/javascript>alert('You should fill one or more fields to complete the search!')</script>";
-		echo "<meta http-equiv='refresh' content='0;URL=../pages/home.php?option=activity'>";
+		echo "<meta http-equiv='refresh' content='0;URL=https://resultadospesquisasatisfacao.herokuapp.com/pages/home.php?option=activity'>";
 }
 echo "</table></body></html>";  
 ?>
