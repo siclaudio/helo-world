@@ -4,15 +4,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ET@ Brazil</title>
-<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="css/style.css"/>
 </head>
 
 <body>
 <div class="top">
-	<img src="../images/sflogo.jpg" width="300px"/>
+	<img src="images/sflogo.jpg" width="300px"/>
 </div>
 <div id="menu">
-	<?php include "menu.menu"; ?>
+	<?php include "pages/menu.menu"; ?>
 </div>
 <div class="content">
 	<?php $panel = $_GET['option']; include $panel.".html"; ?>
