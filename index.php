@@ -15,7 +15,7 @@
 	<?php include "pages/menu.menu"; ?>
 </div>
 <div class="content">
-	<?php $panel = $_GET['option']; include $panel.".html"; ?>
+	<?php $panel = "pages/".$_GET['option']; include $panel.".html"; ?>
 </div>
 </body>
 
