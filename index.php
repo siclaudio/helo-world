@@ -1,4 +1,4 @@
 <?php
 
-  echo "Helo heroku meu primeiro APP";
+  header('Location: pages/home.php');
 ?>
