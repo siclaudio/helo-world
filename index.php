@@ -27,7 +27,7 @@ if ($err) {
 } else {
   echo $response;
 }
-
+?>
 <?php
 
 $curl = curl_init();
@@ -56,3 +56,4 @@ if ($err) {
 } else {
   echo $response;
 }
+?>
