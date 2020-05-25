@@ -6,8 +6,8 @@ $user = $_POST['user'];
 $password = $_POST['password'];
 $name = "Thiago";
 
-include "https://resultadospesquisasatisfacao.herokuapp.com/class/Connection.class";
-include "https://resultadospesquisasatisfacao.herokuapp.com/class/User.class";
+include "https://marketingcloud7329733.herokuapp.com/class/Connection.class";
+include "https://marketingcloud7329733.herokuapp.com/class/User.class";
 
 $validate = new User();
 $validate->setLogin($user);
@@ -26,11 +26,11 @@ if($password == $validate->getPassword()){
     echo $_SESSION['password'] = $validate->getPassword();
     echo $_SESSION['permission'] = $validate->getPermission();
 	
-    header("Location: https://resultadospesquisasatisfacao.herokuapp.com/pages/home.php?option=home");
+    header("Location: https://marketingcloud7329733.herokuapp.com/pages/home.php?option=home");
 }else{
     
     echo "<script text/javascript>alert('User or password invalid')</script>";
-    echo "<meta http-equiv='refresh' content='0;URL=https://resultadospesquisasatisfacao.herokuapp.com/index.php'>";
+    echo "<meta http-equiv='refresh' content='0;URL=https://marketingcloud7329733.herokuapp.com/index.php'>";
 }
 
 ?>
