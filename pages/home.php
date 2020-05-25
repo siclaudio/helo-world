@@ -3,7 +3,7 @@ session_start("et@br");
 
 if(!isset($_SESSION['login']) || !isset($_SESSION['password'])){
     
-     header("Location: https://resultadospesquisasatisfacao.herokuapp.com");
+     header("Location: https://marketingcloud7329733.herokuapp.com");
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -12,12 +12,12 @@ if(!isset($_SESSION['login']) || !isset($_SESSION['password'])){
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ET@ Brazil</title>
-<link rel="stylesheet" href="https://resultadospesquisasatisfacao.herokuapp.com/css/style.css"/>
+<link rel="stylesheet" href="https://marketingcloud7329733.herokuapp.com/css/style.css"/>
 </head>
 
 <body>
 <div class="top">
-	<img src="https://resultadospesquisasatisfacao.herokuapp.com/images/sflogo.jpg" width="300px"/>
+	<img src="https://marketingcloud7329733.herokuapp.com/images/sflogo.jpg" width="300px"/>
 </div>
 <div id="menu">
 	<?php include "pages/menu.menu"; ?>
