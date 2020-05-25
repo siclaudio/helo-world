@@ -30,7 +30,7 @@
         }
     },
     "configurationArguments": {
-      "applicationExtensionKey": "e962d1d4-8b07-4e76-89be-ecd1f1423b6d",
+      "applicationExtensionKey": "e3fae861-d38f-41bb-aabc-664a6c691635",
        "save": {
            "url": "https://marketingcloud7329733.herokuapp.com/save",
             "verb": "POST",
