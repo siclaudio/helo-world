@@ -1,8 +1,9 @@
 {
     "workflowApiVersion": "1.1",
     "metaData": {
-       "icon": "https://marketingcloud7329733.herokuapp.com/images/iconSmall.png",
-       "category": "message"
+        "icon": "images/icon.png",
+        "iconSmall": "images/iconSmall.png",
+        "category": "message"
     },
     "type": "REST",
     "lang": {
@@ -32,7 +33,7 @@
     "configurationArguments": {
       "applicationExtensionKey": "e3fae861-d38f-41bb-aabc-664a6c691635",
        "save": {
-           "url": "https://marketingcloud7329733.herokuapp.com/save",
+           "url": "https://marketingcloud7329733.herokuapp.com/journeybuilder/save",
             "verb": "POST",
             "body": "",
             "format": "json",
@@ -40,7 +41,7 @@
             "timeout": 2000
        },
        "publish": {
-           "url": "https://marketingcloud7329733.herokuapp.com/publish",
+           "url": "https://marketingcloud7329733.herokuapp.com/journeybuilder/publish",
             "verb": "POST",
             "body": "",
             "format": "json",
@@ -48,7 +49,7 @@
             "timeout": 2000
        },
        "validate": {
-           "url": "https://marketingcloud7329733.herokuapp.com/validate",
+           "url": "https://marketingcloud7329733.herokuapp.com/journeybuilder/validate",
             "verb": "POST",
             "body": "",
             "format": "json",
@@ -56,7 +57,7 @@
             "timeout": 2000
        },
        "stop": {
-           "url": "https://marketingcloud7329733.herokuapp.com/stop",
+           "url": "https://marketingcloud7329733.herokuapp.com/journeybuilder/stop",
             "verb": "POST",
             "body": "",
             "format": "json",
