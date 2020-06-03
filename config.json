@@ -1,7 +1,7 @@
 {
     "workflowApiVersion": "1.1",
     "metaData": {
-       "icon": "images/iconSmall.png",
+       "icon": "https://marketingcloud7329733.herokuapp.com/images/icon.png",
        "category": "message"
     },
     "type": "REST",
